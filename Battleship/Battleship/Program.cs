@@ -57,6 +57,10 @@ class Board
         Rows = rows;
         Columns = columns;
         Ship = ship;
+        if (!IsInside(ship.Position) || ship.Position.X + ship.Length > Rows)
+        {
+            throw new ArgumentOutOfRangeException(nameof(ship), "Корабль выходит за границы доски!");
+        }
     }
 
     public bool IsInside(Position position)
