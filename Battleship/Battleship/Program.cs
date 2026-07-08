@@ -52,6 +52,8 @@ class Board
 
     public Board(int rows, int columns, Ship ship)
     {
+        if (rows <= 0 || columns <= 0)
+            throw new ArgumentException("Размеры доски должны быть больше нуля.");
         Rows = rows;
         Columns = columns;
         Ship = ship;
