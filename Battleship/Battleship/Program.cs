@@ -1,7 +1,8 @@
 ﻿class Program
 {
-    public static void Main()
+    public static void Main() 
     {
+        //создаём доску игрока
         var shipPosition = new Position(2, 1);
 
         var ship = new Ship(shipPosition, 2); //x123234
@@ -35,6 +36,8 @@ class Ship
 
     public Ship(Position position, int length)
     {
+        if (length <= 0)
+            throw new ArgumentException("Длина корабля должна быть больше 0!");
         Position = position;
         Length = length;
     }
