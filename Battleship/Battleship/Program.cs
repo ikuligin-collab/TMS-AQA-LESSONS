@@ -11,20 +11,6 @@
         var game = new Game();
 
         game.Play(board);
-
-
-
-        int a = 2;
-        int b = a; // взяли 2 из а и скопировали в b
-        a = 5;
-        //b = 2
-        
-        Position p = new  Position(1, 1);
-        Position p2 = p;
-
-        p.X = 2;
-        
-        //p2.X == 2
     }
 }
 
