@@ -75,7 +75,7 @@ class Position
 
 class Ship
 {
-    // Координаты самой левой верней палубы
+    // Координаты самой левой верней палубы 
     public Position Position { get; }
     public int Length { get; }
 
@@ -116,7 +116,7 @@ class Board
             }
         }
 
-        // Ships.Any(currentShip => position.Y == currentShip.Position.Y && position.X >= currentShip.Position.X && position.X < currentShip.Position.X + currentShip.Length); // есть ли хоть один элемент коллекции который отвечает заданному условию?
+        // Ships.Any(currentShip => position.Y  == currentShip.Position.Y && position.X >= currentShip.Position.X && position.X < currentShip.Position.X + currentShip.Length); // есть ли хоть один элемент коллекции который отвечает заданному условию?
         //
         // var result = Ships.Where(currentShip => currentShip.Position.X == 0).ToArray(); // получить все элементы коллекции которые отвечают заданному условию
         //
