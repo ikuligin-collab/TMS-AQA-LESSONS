@@ -1,4 +1,5 @@
-﻿class Program
+﻿using System;
+class Program
 {
     public static void Main() 
     {
@@ -70,6 +71,8 @@ class Board
 
     public bool HasShip(Position position)
     {
+        if (!IsInside(position))
+            throw new ArgumentOutOfRangeException(nameof(position), "Попытка проверить клетку за пределами поля!");
         return position.Y == Ship.Position.Y && position.X >= Ship.Position.X &&
                position.X < Ship.Position.X + Ship.Length;
     }
@@ -77,38 +80,101 @@ class Board
 
 class Game
 {
-    public void Play(Board board)
+    private readonly Random _random = new Random();
+    // свойства для хранения попаданий
+    public int PlayerHits { get; private set; }
+    public int OpponentHits { get; private set; }
+    public void Play(Board playerBoard)
     {
+        // Создаем доску компьютера
+        Board opponentBoard = GenerateOpponentBoard(playerBoard.Rows, playerBoard.Columns);
+        
+        Console.WriteLine("Игра началась!Всем приготовится!!");
         var roundCount = 0;
+
         while (true)
         {
             roundCount++;
-            if (!TryReadFromConsole("X",  roundCount,  out var xPosition))
-                continue;
+            Console.WriteLine($"\n=== Раунд № {roundCount} ===");
 
-            Console.WriteLine();
+            // --- ХОД ИГРОКА ---
+            if (!TryReadFromConsole("X", roundCount, out var xPosition)) continue;
+            if (!TryReadFromConsole("Y", roundCount, out var yPosition)) continue;
 
-            if (!TryReadFromConsole("Y",  roundCount, out var yPosition))
-                continue;
+            var playerShot = new Position(xPosition, yPosition);
 
-            var shotPosition = new Position(xPosition, yPosition);
-
-            if (!board.IsInside(shotPosition))
+            // обработка выстрела вне поля
+            try
             {
-                Console.WriteLine("Invalid shot position!");
-                continue;
+                // Игрок стреляет по доске компъютера
+                if (opponentBoard.HasShip(playerShot))
+                {
+                    Console.WriteLine("Игрок: Попадание!");
+                    PlayerHits++; 
+                }
+                else
+                {
+                    Console.WriteLine("Игрок: Промах!");
+                }
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                // ошибка елси координаты вне достки
+                Console.WriteLine($"Выстрел вне координат доски: {ex.Message} Попробуйте снова.");
+                continue; 
             }
 
-            if (board.HasShip(shotPosition))
+            // ХОД КОМПЬЮТЕРА
+            // случайный ход компьютера
+            int compX = _random.Next(0, playerBoard.Rows);
+            int compY = _random.Next(0, playerBoard.Columns);
+            var compShot = new Position(compX, compY);
+            
+            // Вывод координат компьютера
+            Console.Write($"Компьютер стреляет в координаты ({compX}, {compY}) -> ");
+
+            // Компьютер стреляет по доске игрока
+            if (playerBoard.HasShip(compShot))
             {
-                Console.WriteLine("Hit!");
+                Console.WriteLine("Попадание!");
+                OpponentHits++; // добавляем колчесвто попаданий компьютеру
             }
             else
             {
-                Console.WriteLine("Miss!");
+                Console.WriteLine("Промах!");
+            }
+
+            // вывод текущего счета
+            Console.WriteLine($"Текущий счет после раунда {roundCount}: Игрок {PlayerHits} - {OpponentHits} Компьютер");
+        }
+    }
+   // Генерация достки противника
+    private Board GenerateOpponentBoard(int rows, int columns)
+    {
+        while (true)
+        {
+            try
+            {
+                // Случайная длина корабля от 1 до 3 клеток
+                int length = _random.Next(1, 4); 
+                
+                // Позиция Y может быть любой на доске
+                int y = _random.Next(0, columns);
+                
+                // Позиция X должна быть такой, чтобы корабль по длине не вылез за Rows
+                int x = _random.Next(0, rows - length + 1); 
+
+                var compShip = new Ship(new Position(x, y), length);
+                return new Board(rows, columns, compShip);
+            }
+            catch (Exception ex)
+            {
+                // Если вдруг алгоритм генерации выдаст ошибку, конструктор выбросит исключение
+                Console.WriteLine($"Сбой генерации: {ex.Message}");
             }
         }
     }
+  
 
     private bool TryReadFromConsole(string coordinateName, int roundCount, out int coordinate)
     {
