@@ -1,18 +1,27 @@
 ﻿using System;
+
 class Program
 {
     public static void Main() 
     {
-        //создаём доску игрока
-        var shipPosition = new Position(2, 1);
+        try
+        {
+            //создаём доску игрока
+            var shipPosition = new Position(2, 1);
 
-        var ship = new Ship(shipPosition, 2); //x123234
+            var ship = new Ship(shipPosition, 2); //x123234
 
-        var board = new Board(5, 5, ship);
+            var board = new Board(5, 5, ship);
 
-        var game = new Game();
+            var game = new Game();
 
-        game.Play(board);
+            game.Play(board);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Критическая ошибка игры: {ex.Message}");
+        }
+        
     }
 }
 
