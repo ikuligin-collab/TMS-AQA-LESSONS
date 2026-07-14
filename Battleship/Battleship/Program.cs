@@ -80,6 +80,20 @@ class Board
                position.X < Ship.Position.X + Ship.Length;
     }
 }
+//Класс для хранения истории выстрелов
+class ShotRecord
+{
+    public string PlayerName { get; }
+    public Position Position { get; }
+    public bool IsHit { get;}
+
+    public ShotRecord(string playerName, Position position, bool isHit)
+    {
+        PlayerName = playerName;
+        Position = position;
+        IsHit = isHit; 
+    }
+}
 
 class Game
 {
@@ -87,6 +101,7 @@ class Game
     // свойства для хранения попаданий
     public int PlayerHits { get; private set; }
     public int OpponentHits { get; private set; }
+  
     public void Play(Board playerBoard)
     {
         // Создаем доску компьютера
