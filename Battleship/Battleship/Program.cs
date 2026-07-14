@@ -146,7 +146,8 @@ class Game
     public int OpponentHits { get; private set; }
     // создаю списокд для хранения истории выстрелов
     private readonly List<ShotRecord> _shotHistory = new List<ShotRecord>();
-  
+    //Создаю коллекцию 
+    private readonly List<Shot> _shots = new List<Shot>();
     public void Play(Board playerBoard)
     {
         // Создаем доску компьютера
@@ -162,9 +163,9 @@ class Game
             Console.WriteLine($"\n=== Раунд № {roundCount} ===");
 
             // --- ХОД ИГРОКА ---
-            if (!TryReadFromConsole("X", roundCount, out var xPosition)) continue;
-            if (!TryReadFromConsole("Y", roundCount, out var yPosition)) continue;
-
+            int xPosition, yPosition;
+            while (!TryReadFromConsole("X", roundCount, out xPosition)) { }
+            while (!TryReadFromConsole("Y", roundCount, out yPosition)) { }
            
 
             // обработка выстрела вне поля
@@ -177,6 +178,7 @@ class Game
                 
                 // Сохранение выстрела в истории
                 _shotHistory.Add(new ShotRecord("Игрок", playerShot, isPlayerHit));
+                _shots.Add(new Shot(opponentBoard, playerShot, isPlayerHit ? opponentBoard.Ship : null));
                 
                 // Игрок стреляет по доске компъютера
                 if (isPlayerHit)
@@ -195,6 +197,8 @@ class Game
                 Console.WriteLine($"Выстрел вне координат доски: {ex.Message} Попробуйте снова.");
                 continue; 
             }
+            
+            
             // Если игрок уже победил, компьютер не ходит
             if (PlayerHits >= opponentBoard.Ship.Length) break;
 
@@ -211,7 +215,7 @@ class Game
             bool isCompHit = playerBoard.HasShip(compShot);
             
             // Сохранtybt выстрела компьютера в истории
-            _shotHistory.Add(new ShotRecord("Компьютер", compShot, isCompHit));
+            _shots.Add(new Shot(playerBoard, compShot, isCompHit ? playerBoard.Ship : null));
 
             // Компьютер стреляет по доске игрока
             if (isCompHit)
@@ -223,9 +227,12 @@ class Game
             {
                 Console.WriteLine("Компьютер: Промах!");
             }
+            
 
             // вывод текущего счета
             Console.WriteLine($"Текущий счет после раунда {roundCount}: Игрок {PlayerHits} - {OpponentHits} Компьютер");
+            // Вызываем метод, передавая ему обе доски
+            DisplayRoundStatistics(playerBoard, opponentBoard);
         }
     }
    // Генерация достки противника
@@ -267,6 +274,74 @@ class Game
         }
         
         return true;
+    }
+    // 8. Вывод статистики по каждой доске в конце раунда с использованием LINQ
+    private void DisplayRoundStatistics(Board playerBoard, Board opponentBoard)
+    {
+        Console.WriteLine("\n--- СТАТИСТИКА РАУНДА (LINQ) ---");
+
+        Board[] boards = { playerBoard, opponentBoard };
+        foreach (var board in boards)
+        {
+            string boardOwner = board == playerBoard ? "ИГРОКА" : "КОМПЬЮТЕРА";
+            Console.WriteLine($"\nДоска {boardOwner}:");
+
+            // Получаем все выстрелы по этой конкретной доске
+            var boardShots = _shots.Where(s => s.Board == board).ToList();
+
+            // 8.1. Общее количество выстрелов
+            int totalShots = boardShots.Count;
+            Console.WriteLine($"  8.1. Всего выстрелов по доске: {totalShots}");
+
+            // 8.2. Количество попаданий
+            int hits = boardShots.Count(s => s.Ship != null);
+            Console.WriteLine($"  8.2. Попаданий: {hits}");
+
+            // 8.3. Количество промахов
+            int misses = boardShots.Count(s => s.Ship == null);
+            Console.WriteLine($"  8.3. Промахов: {misses}");
+
+            // 8.4. Был ли хотя бы один промах
+            bool hasMiss = boardShots.Any(s => s.Ship == null);
+            Console.WriteLine($"  8.4. Был ли хоть один промах: {(hasMiss ? "Да" : "Нет")}");
+
+            // 8.5. Первый успешный выстрел
+            var firstHit = boardShots.FirstOrDefault(s => s.Ship != null);
+            if (firstHit != null)
+            {
+                Console.WriteLine($"  8.5. Первый успешный выстрел: в клетку ({firstHit.Position.X}, {firstHit.Position.Y})");
+            }
+            else
+            {
+                Console.WriteLine("  8.5. Первый успешный выстрел: пока нет попаданий");
+            }
+
+            // 8.6. Список координат всех попаданий
+            var hitCoordinates = boardShots
+                .Where(s => s.Ship != null)
+                .Select(s => $"({s.Position.X}, {s.Position.Y})");
+            
+            Console.WriteLine($"  8.6. Координаты попаданий: {(hitCoordinates.Any() ? string.Join(", ", hitCoordinates) : "нет")}");
+
+            // 8.7.* Подсчет попаданий для каждого корабля и статус "потонул"
+            // Поскольку у нас на доске пока один корабль, мы работаем с ним в цикле
+            List<Ship> shipsOnBoard = new List<Ship> { board.Ship }; 
+            Console.WriteLine("  8.7. Состояние кораблей на доске:");
+
+            foreach (var ship in shipsOnBoard)
+            {
+                // Считаем уникальные попадания именно в этот корабль по истории выстрелов
+                int shipHitsCount = boardShots
+                    .Where(s => s.Ship == ship)
+                    .Select(s => s.Position)
+                    .Distinct() // Исключаем повторы, хотя повторный выстрел и так запрещен
+                    .Count();
+
+                bool isSunk = shipHitsCount >= ship.Length;
+                Console.WriteLine($"       - Корабль (Длина: {ship.Length}): Попаданий: {shipHitsCount}/{ship.Length} | Статус: {(isSunk ? "ПОТОПЛЕН" : "На плаву")}");
+            }
+        }
+        Console.WriteLine("--------------------------------");
     }
 }
 
