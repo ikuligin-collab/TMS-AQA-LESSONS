@@ -51,6 +51,7 @@ class Board
 {
     public int Rows { get; }
     public int Columns { get; }
+    
 
     public Ship Ship { get; }
 
@@ -58,6 +59,8 @@ class Board
     {
         if (rows <= 0 || columns <= 0)
             throw new ArgumentException("Размеры доски должны быть больше нуля.");
+        if (ship == null)
+            throw new ArgumentNullException(nameof(ship), "Корабль не может быть null.");
         Rows = rows;
         Columns = columns;
         Ship = ship;
