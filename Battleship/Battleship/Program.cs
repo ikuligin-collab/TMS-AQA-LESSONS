@@ -75,6 +75,19 @@ class Board
         return position.X >= 0 && position.X < Rows && position.Y >= 0 && position.Y < Columns;
     }
 
+    //  Метод поиска корабля по координатам выстрела
+    public Ship FindShip(Position position)
+    {
+        if (!IsInside(position))
+            throw new ArgumentOutOfRangeException(nameof(position), "Координаты находятся вне доски.");
+
+        // Проверяем, задевает ли позиция наш корабль (по горизонтали X)
+        bool hitsShip = position.Y == Ship.Position.Y && 
+                        position.X >= Ship.Position.X && 
+                        position.X < Ship.Position.X + Ship.Length;
+
+        return hitsShip ? Ship : null;
+    }
     public bool HasShip(Position position)
     {
         if (!IsInside(position))
