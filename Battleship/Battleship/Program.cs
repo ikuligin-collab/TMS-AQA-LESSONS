@@ -49,6 +49,11 @@ class Ship
 
     public Ship(Position position, int length)
     {
+        // Проверки параметров корабля
+        //пустая позиция
+        if (position == null)
+            throw new ArgumentNullException(nameof(position), "Позиция корабля не может быть null.");
+        //отрицательная позиция
         if (length <= 0)
             throw new ArgumentException("Длина корабля должна быть больше 0!");
         Position = position;
