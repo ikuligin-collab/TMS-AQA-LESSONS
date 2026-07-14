@@ -122,11 +122,13 @@ class Game
             if (!TryReadFromConsole("X", roundCount, out var xPosition)) continue;
             if (!TryReadFromConsole("Y", roundCount, out var yPosition)) continue;
 
-            var playerShot = new Position(xPosition, yPosition);
+           
 
             // обработка выстрела вне поля
             try
             {
+                //Проверка что ивыстрел внутри поля
+                var playerShot = new Position(xPosition, yPosition);
                 // Игрок стреляет по доске компъютера
                 if (opponentBoard.HasShip(playerShot))
                 {
