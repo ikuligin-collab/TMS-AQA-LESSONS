@@ -94,7 +94,20 @@ class ShotRecord
         IsHit = isHit; 
     }
 }
+ //Класс выстрела
+ class Shot
+ {
+     public Board Board { get; }
+     public Position Position { get; }
+     public Ship Ship { get; } // null, если промах
 
+     public Shot(Board board, Position position, Ship ship)
+     {
+         Board = board ?? throw new ArgumentNullException(nameof(board));
+         Position = position ?? throw new ArgumentNullException(nameof(position));
+         Ship = ship; // может быть null
+     }
+ }
 class Game
 {
     private readonly Random _random = new Random();
