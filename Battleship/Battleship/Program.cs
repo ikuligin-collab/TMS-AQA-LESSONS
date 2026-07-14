@@ -129,7 +129,7 @@ class Game
             {
                 //Проверка что ивыстрел внутри поля
                 var playerShot = new Position(xPosition, yPosition);
-                //Переменная под сохранение истории выстрела
+                //Переменная под сохранение истории выстрела игрока
                 bool isPlayerHit = opponentBoard.HasShip(playerShot);
                 
                 // Сохранение выстрела в истории
@@ -163,16 +163,22 @@ class Game
             
             // Вывод координат компьютера
             Console.Write($"Компьютер стреляет в координаты ({compX}, {compY}) -> ");
+            
+            //Переменная для хранения истории выстрела компьютера
+            bool isCompHit = playerBoard.HasShip(compShot);
+            
+            // Сохранtybt выстрела компьютера в истории
+            _shotHistory.Add(new ShotRecord("Компьютер", compShot, isCompHit));
 
             // Компьютер стреляет по доске игрока
-            if (playerBoard.HasShip(compShot))
+            if (isCompHit)
             {
-                Console.WriteLine("Попадание!");
+                Console.WriteLine("Компьютер: Попадание!");
                 OpponentHits++; // добавляем колчесвто попаданий компьютеру
             }
             else
             {
-                Console.WriteLine("Промах!");
+                Console.WriteLine("Компьютер: Промах!");
             }
 
             // вывод текущего счета
