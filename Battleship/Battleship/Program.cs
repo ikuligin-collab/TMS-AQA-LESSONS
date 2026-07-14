@@ -129,8 +129,14 @@ class Game
             {
                 //Проверка что ивыстрел внутри поля
                 var playerShot = new Position(xPosition, yPosition);
+                //Переменная под сохранение истории выстрела
+                bool isPlayerHit = opponentBoard.HasShip(playerShot);
+                
+                // Сохранение выстрела в истории
+                _shotHistory.Add(new ShotRecord("Игрок", playerShot, isPlayerHit));
+                
                 // Игрок стреляет по доске компъютера
-                if (opponentBoard.HasShip(playerShot))
+                if (isPlayerHit)
                 {
                     Console.WriteLine("Игрок: Попадание!");
                     PlayerHits++; 
@@ -146,6 +152,8 @@ class Game
                 Console.WriteLine($"Выстрел вне координат доски: {ex.Message} Попробуйте снова.");
                 continue; 
             }
+            // Если игрок уже победил, компьютер не ходит
+            if (PlayerHits >= opponentBoard.Ship.Length) break;
 
             // ХОД КОМПЬЮТЕРА
             // случайный ход компьютера
