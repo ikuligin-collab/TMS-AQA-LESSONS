@@ -101,6 +101,8 @@ class Game
     // свойства для хранения попаданий
     public int PlayerHits { get; private set; }
     public int OpponentHits { get; private set; }
+    // создаю списокд для хранения истории выстрелов
+    private readonly List<ShotRecord> _shotHistory = new List<ShotRecord>();
   
     public void Play(Board playerBoard)
     {
