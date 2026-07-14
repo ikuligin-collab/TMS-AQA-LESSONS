@@ -26,7 +26,7 @@ class Position
     {
         //проверка на отрицательные координаты
         if (x < 0 || y < 0)
-            throw new ArgumentOutOfRangeException("Координеаты не могут быть отрицательными");
+            throw new ArgumentException("Координаты не могут быть отрицательными");
         X = x;
         Y = y;
     }
