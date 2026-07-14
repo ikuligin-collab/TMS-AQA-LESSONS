@@ -112,7 +112,8 @@ class Game
         Console.WriteLine("Игра началась!Всем приготовится!!");
         var roundCount = 0;
 
-        while (true)
+        //Цикл игры не будет завершён, пока противник не уничтожит все палубы
+        while (PlayerHits < opponentBoard.Ship.Length && OpponentHits < playerBoard.Ship.Length)
         {
             roundCount++;
             Console.WriteLine($"\n=== Раунд № {roundCount} ===");
