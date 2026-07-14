@@ -19,11 +19,14 @@ class Program
 
 class Position
 {
-    public int X { get; set; }
+    public int X { get; }
     public int Y { get; }
 
     public Position(int x, int y)
     {
+        //проверка на отрицательные координаты
+        if (x < 0 || y < 0)
+            throw new ArgumentOutOfRangeException("Координеаты не могут быть отрицательными");
         X = x;
         Y = y;
     }
