@@ -1,19 +1,21 @@
 ﻿namespace Battleship;
 
-class HorizontalShip : Ship
+public class HorizontalShip : Ship
 {
-    public HorizontalShip(Position position, int length) : base(position, length)
-    {
-        Console.WriteLine("Horizontal ship created!");
-    }
+    public HorizontalShip(Position position, int length) : base(position, length) { }
     
     public override bool IsOnPosition(Position position)
     {
         return position.Y == Position.Y && position.X >= Position.X && position.X < Position.X + Length;
     }
 
-    public void MakeSound()
+    public override bool IntersectsWith(Ship other)
     {
-        Console.WriteLine("Buuuuuuuuuu!");
+        foreach (var pos in GetPositions())
+        {
+            if (other.IsOnPosition(pos))
+                return true;
+        }
+        return false;
     }
 }

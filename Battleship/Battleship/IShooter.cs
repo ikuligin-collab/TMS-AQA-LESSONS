@@ -2,5 +2,5 @@
 
 interface IShooter
 {
-    public ShootResult Shoot(Board targetBoard);
+    Shot Shoot(Board targetBoard);
 }

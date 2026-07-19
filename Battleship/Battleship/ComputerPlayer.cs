@@ -2,17 +2,18 @@
 
 class ComputerPlayer : IPlayer
 {
-    public ShootResult Shoot(Board targetBoard)
+    public Shot Shoot(Board targetBoard)
     {
         var random = new Random();
-
+        // Компьютер просто выбирает случайную позицию в пределах доски
         var shotPosition = targetBoard.GeneratePosition(random);
-
-        return targetBoard.HasShip(shotPosition) ? ShootResult.Hit : ShootResult.Miss;
+        
+        Ship? targetShip = targetBoard.Ships.FirstOrDefault(s => s.IsOnPosition(shotPosition));
+        return new Shot(targetBoard, shotPosition, targetShip);
     }
 
     public void WriteName()
     {
-        Console.WriteLine("Robot");
+        Console.WriteLine("Компьютер (Робот)");
     }
 }

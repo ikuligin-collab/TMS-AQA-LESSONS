@@ -1,6 +1,6 @@
 ﻿namespace Battleship;
 
-class Board
+public class Board
 {
     public int Rows { get; init;  }
     public int Columns { get; }
