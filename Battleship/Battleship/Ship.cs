@@ -8,6 +8,9 @@ abstract class Ship
 
     public Ship(Position position, int length)
     {
+        // Проверка параметров корабля на отрицательную позицию
+        if (length <= 0)
+            throw new ArgumentException("Длина корабля должна быть больше 0!");
         Position = position;
         Length = length;
     }
