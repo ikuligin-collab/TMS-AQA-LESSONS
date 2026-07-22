@@ -1,0 +1,15 @@
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\bin\Debug\net10.0\Battleship.exe
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\bin\Debug\net10.0\Battleship.deps.json
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\bin\Debug\net10.0\Battleship.runtimeconfig.json
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\bin\Debug\net10.0\Battleship.dll
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\bin\Debug\net10.0\Battleship.pdb
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\obj\Debug\net10.0\Battleship.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\obj\Debug\net10.0\Battleship.AssemblyInfoInputs.cache
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\obj\Debug\net10.0\Battleship.AssemblyInfo.cs
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\obj\Debug\net10.0\Battleship.csproj.CoreCompileInputs.cache
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\obj\Debug\net10.0\Battleship.sourcelink.json
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\obj\Debug\net10.0\Battleship.dll
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\obj\Debug\net10.0\refint\Battleship.dll
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\obj\Debug\net10.0\Battleship.pdb
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\obj\Debug\net10.0\Battleship.genruntimeconfig.cache
+C:\Users\lesnu\RiderProjects\TMS-AQA\Battleship\Battleship\obj\Debug\net10.0\ref\Battleship.dll
