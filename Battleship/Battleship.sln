@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleship", "Battleship\Battleship.csproj", "{B618BFE4-2CB1-46DC-BED3-E408DD236839}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projecy for homework 9", "Projecy for homework 9\Projecy for homework 9.csproj", "{3EE57E28-6735-4078-A8C4-7EF4199940F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B618BFE4-2CB1-46DC-BED3-E408DD236839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B618BFE4-2CB1-46DC-BED3-E408DD236839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B618BFE4-2CB1-46DC-BED3-E408DD236839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B618BFE4-2CB1-46DC-BED3-E408DD236839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EE57E28-6735-4078-A8C4-7EF4199940F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EE57E28-6735-4078-A8C4-7EF4199940F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EE57E28-6735-4078-A8C4-7EF4199940F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EE57E28-6735-4078-A8C4-7EF4199940F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
