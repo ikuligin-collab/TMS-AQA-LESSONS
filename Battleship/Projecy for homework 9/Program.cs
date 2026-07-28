@@ -5,10 +5,6 @@ using System.Collections.Generic;
 namespace TaskSolution
 {
     
-    // ==========================================
-    // 1. ИНТЕРФЕЙС И КЛАССЫ (в том же файле)
-    // ==========================================
-
     // Интерфейс скидки
     public interface IDiscountable
     {
@@ -69,17 +65,12 @@ namespace TaskSolution
             Console.WriteLine($"Телефон: {Brand} {Name} | Цена: {Price:C}");
         }
     }
-
-    // ==========================================
+    
     // 2. ГЛАВНЫЙ КЛАСС ПРОГРАММЫ
-    // ==========================================
     internal class Program
     {
-        // ----------------------------------------------------
-        // ВСЕ МЕТОДЫ РАЗМЕЩЕНЫ В PROGRAM И СДЕЛАНЫ STATIC
-        // ----------------------------------------------------
-
-        // Метод 1: Вывод списка всех товаров
+       
+        //Вывод списка всех товаров
         public static void PrintAllProducts(List<Product> products)
         {
             Console.WriteLine("--- Список всех товаров ---");
@@ -90,7 +81,7 @@ namespace TaskSolution
             Console.WriteLine();
         }
 
-        // Метод 2: Применение скидки к объектам, поддерживающим IDiscountable
+        //Применение скидки к объектам, поддерживающим IDiscountable
         public static void ApplyDiscountToAll(List<IDiscountable> discountables, decimal discountPercent)
         {
             Console.WriteLine($"--- Применение скидки {discountPercent}% ---");
@@ -101,7 +92,7 @@ namespace TaskSolution
             Console.WriteLine("Скидка успешно применена!\n");
         }
 
-        // Метод 3: Расчет общей стоимости всех товаров
+        //Расчет общей стоимости всех товаров
         public static decimal CalculateTotalPrice(List<Product> products)
         {
             decimal total = 0;
@@ -111,11 +102,25 @@ namespace TaskSolution
             }
             return total;
         }
+        
+        //Вывод одного значения
+        static void PrintValue<T>(T value)
+        {
+            Console.WriteLine($"Значение: {value}");
+        }
 
-
-        // ----------------------------------------------------
-        // MAIN: Подготовка данных и ОБЯЗАТЕЛЬНЫЙ вызов методов
-        // ----------------------------------------------------
+        // Вывод всех элементов списка
+        static void PrintList<T>(List<T> value)
+        {
+            Console.WriteLine($"Список {typeof(T).Name}:)"); // 
+            foreach (var item in value) // перебор элементов
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine(); //отступ в консоли
+        }
+        
+        // Main метьд
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
