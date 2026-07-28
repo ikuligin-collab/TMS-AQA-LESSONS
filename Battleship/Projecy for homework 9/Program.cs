@@ -32,6 +32,11 @@ namespace TaskSolution
         {
             Console.WriteLine($"Товар: {Name} | Цена: {Price:C}");
         }
+        public override string ToString()
+        {
+            return $"{Name} ({Price} руб.)"; 
+            // Названия полей укажите те, что используются у вас в классе
+        }
     }
 
     // Класс Книга (наследник Product)
@@ -48,6 +53,7 @@ namespace TaskSolution
         {
             Console.WriteLine($"Книга: '{Name}' ({Author}) | Цена: {Price:C}");
         }
+        
     }
 
     // Класс Телефон (наследник Product)
@@ -112,7 +118,7 @@ namespace TaskSolution
         // Вывод всех элементов списка
         static void PrintList<T>(List<T> value)
         {
-            Console.WriteLine($"Список {typeof(T).Name}:)"); // 
+            Console.WriteLine($"Список {typeof(T).Name}"); // 
             foreach (var item in value) // перебор элементов
             {
                 Console.WriteLine(item);
@@ -222,32 +228,94 @@ namespace TaskSolution
             // Вызов метода 3 + вывод результата
             decimal totalPrice = CalculateTotalPrice(cart);
             Console.WriteLine($"Общая стоимость товаров в корзине: {totalPrice:C}");
-            
+           
+            //-------
             // Проверка дженерик методов
+            //-------
             Console.WriteLine("=== Проверка Generic-методов ===\n");
             
             // 1. PrintValue (проверяем число, строку, bool)
             Console.WriteLine("1. PrintValue:");
-            PrintValue(42);
-            PrintValue("Привет, C#!");
+            PrintValue(cart[0].Price);// проверка на число
+            PrintValue($"{cart[0].Name}");// проверка на строку
             PrintValue(true);
             Console.WriteLine("-------------");
             
-            // Создаю тестовые списки для остальных методов
-            List<int> numbers = new List<int> { 10, 20, 30, 40, 50 };
-            List<string> words = new List<string> { "Яблоко", "Банан", "Груша" };
             
             // 2. PrintList (проверяем со числами и строками)
+            
+            // Создаем пустой список для названий
+            List<string> productNames = new List<string>();
+            //Заполняем его 
+            foreach (var product in cart)
+            {
+                productNames.Add(product.Name); 
+            }
+            // Создаем пустой список для цен
+            List<decimal> productPrices = new List<decimal>();
+            //Заполняем его 
+            foreach (var product in cart)
+            {
+                productPrices.Add(product.Price); 
+            }
             Console.WriteLine("2. PrintList:");
-            PrintList(numbers);
-            PrintList(words);
+            PrintList(productNames);// Выводим строки
+            PrintList(productPrices); // выводим инты
             Console.WriteLine("-------------");
             
             // 3. GetFirst
             Console.WriteLine("3. GetFirst:");
-            Console.WriteLine($"Первое число: {GetFirst(numbers)}");
-            Console.WriteLine($"Первое слово: {GetFirst(words)}\n");
+            Console.WriteLine($"Цена первого товара: {GetLast(cart).Price}");
+            Console.WriteLine($"Наименование первого товара: {GetLast(cart).Name}");
+            Console.WriteLine("-------------");
 
+            // 4. GetLast
+            Console.WriteLine("4. GetLast:");
+            Console.WriteLine($"Наименование последнего товара: {GetLast(cart).Name}");
+            Console.WriteLine($"Цена последнего товара: {GetLast(cart).Price}");
+            Console.WriteLine("-------------");
+            
+            //5. GetByIndex
+            Console.WriteLine("5. GetByIndex:");
+            Console.WriteLine($"Товар под индексом 2: {GetByIndex(cart, 2)}\n");
+            Console.WriteLine("-------------");
+
+            // 6. Repeat
+            Console.WriteLine("6. Repeat:");
+            List<Product> repeatedCarts = Repeat(cart[2], 2); // создаю список из повторяющегося второго объекта
+            PrintList(repeatedCarts);//Вывод нового списка
+            Console.WriteLine("-------------");
+
+            //7. Copy
+            Console.WriteLine("7. Copy:");
+            List<Product> cartCopy = Copy(cart); // Создаем копию списка товаров
+            PrintList(cartCopy);
+            Console.WriteLine("-------------");
+
+            // 8. Merge
+            Console.WriteLine("8. Merge:");
+            // Создаем второй список товаров для объединения
+            List<Product> additionalProducts = new List<Product>
+            {
+                new Book("Преступление и наказание", 700, "Ф. Достоевский"),
+                new Phone("Pixel 8", 65000, "Google")
+            };
+            List<Product> mergedCart = Merge(cart, additionalProducts); // Объединяем корзину с новым списком
+            PrintList(mergedCart);
+            Console.WriteLine("-------------");
+
+            // 9. Reverse
+            Console.WriteLine("9. Reverse:");
+            List<Product> reversedCart = Reverse(cart); // Разворачиваем список товаров
+            PrintList(reversedCart);
+            Console.WriteLine("-------------");
+
+            // 10. Take
+            Console.WriteLine("10. Take:");
+            List<Product> takenProducts = Take(cart, 2); // Берем первые 2 товара из корзины
+            PrintList(takenProducts);
+            Console.WriteLine("-------------");
+                
             Console.ReadKey();
         }
     }
