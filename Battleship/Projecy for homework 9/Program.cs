@@ -171,6 +171,18 @@ namespace TaskSolution
             return result;
         }
         
+        // Вывод прервых элементов
+        static List<T> Take<T>(List<T> items, int count)
+        {
+            List<T> result = new List<T>();
+            int limit = Math.Min(count, items.Count); // Чтобы не выйти за пределы массива
+            for (int i = 0; i < limit; i++)
+            {
+                result.Add(items[i]);
+            }
+            return result;
+        }
+        
         // Main метьд
         static void Main(string[] args)
         {
