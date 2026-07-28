@@ -120,6 +120,15 @@ namespace TaskSolution
             Console.WriteLine(); //отступ в консоли
         }
         
+        // Последний элемент списка
+        static T GetLast<T>(List<T> items)
+        {
+            if (items == null || items.Count == 0)
+                throw new InvalidOperationException("Список пуст!");
+
+            return items[items.Count - 1]; // У последнего элемента индекс на 1 больше, чем счётчик
+        }
+        
         // Main метьд
         static void Main(string[] args)
         {
