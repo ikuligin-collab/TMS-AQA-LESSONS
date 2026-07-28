@@ -149,6 +149,20 @@ namespace TaskSolution
             return result;
         }
         
+        // Копирование списка
+        static List<T> Copy<T>(List<T> items)
+        {
+            return new List<T>(items);
+        }
+        
+        //Объеденение 2х списков 
+        static List<T> Merge<T>(List<T> first, List<T> second)
+        {
+            List<T> result = new List<T>(first);
+            result.AddRange(second);
+            return result;
+        }
+        
         // Main метьд
         static void Main(string[] args)
         {
