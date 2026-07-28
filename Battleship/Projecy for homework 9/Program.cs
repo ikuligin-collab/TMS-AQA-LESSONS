@@ -129,6 +129,15 @@ namespace TaskSolution
             return items[items.Count - 1]; // У последнего элемента индекс на 1 больше, чем счётчик
         }
         
+        // Элемент по индексу
+        static T GetByIndex<T>(List<T> items, int index)
+        {
+            if (index < 0 || index >= items.Count)
+                throw new ArgumentOutOfRangeException(nameof(index), "Индекс находится вне границ списка.");
+
+            return items[index];
+        }
+        
         // Main метьд
         static void Main(string[] args)
         {
