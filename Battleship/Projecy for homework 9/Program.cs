@@ -119,6 +119,14 @@ namespace TaskSolution
             }
             Console.WriteLine(); //отступ в консоли
         }
+        //Получение первого элемента
+        static T GetFirst<T>(List<T> items)
+        {
+            if (items == null || items.Count == 0)
+                throw new InvalidOperationException("Список пуст!");
+
+            return items[0];
+        }
         
         // Получение последнего элемента списка
         static T GetLast<T>(List<T> items)
@@ -188,9 +196,9 @@ namespace TaskSolution
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             // 1. Подготавливаем необходимые данные
-            Book book1 = new Book("Идиот", 800, "Ф. Достоевский");
-            Book book2 = new Book("Чистый код", 1500, "Р. Мартин");
-            Phone phone1 = new Phone("iPhone 15", 90000, "Apple");
+            Book book1 = new Book("Мастер и Маргарита", 800, "М. Булгаков");
+            Book book2 = new Book("1984", 1500, "Д. Оруэлл");
+            Phone phone1 = new Phone("iPhone 15 pro Maх", 99000, "Apple");
             Phone phone2 = new Phone("Galaxy S24", 80000, "Samsung");
 
             // Коллекция всех товаров
@@ -200,12 +208,12 @@ namespace TaskSolution
             List<IDiscountable> discountItems = new List<IDiscountable> { book1, phone1 };
 
             
-            // 2. Вызываем КАЖДЫЙ созданный метод и выводим результаты
+            // Вызов каждого метода и вывод результата
 
-            // Вызов метода 1
+            // Вызов метода "вывод всех продуктов"
             PrintAllProducts(cart);
 
-            // Вызов метода 2
+            // Вызов метода "2"
             ApplyDiscountToAll(discountItems, 10); // Скидка 10% на book1 и phone1
 
             // Повторный вызов метода 1, чтобы показать изменение цен после скидки
@@ -214,6 +222,31 @@ namespace TaskSolution
             // Вызов метода 3 + вывод результата
             decimal totalPrice = CalculateTotalPrice(cart);
             Console.WriteLine($"Общая стоимость товаров в корзине: {totalPrice:C}");
+            
+            // Проверка дженерик методов
+            Console.WriteLine("=== Проверка Generic-методов ===\n");
+            
+            // 1. PrintValue (проверяем число, строку, bool)
+            Console.WriteLine("1. PrintValue:");
+            PrintValue(42);
+            PrintValue("Привет, C#!");
+            PrintValue(true);
+            Console.WriteLine("-------------");
+            
+            // Создаю тестовые списки для остальных методов
+            List<int> numbers = new List<int> { 10, 20, 30, 40, 50 };
+            List<string> words = new List<string> { "Яблоко", "Банан", "Груша" };
+            
+            // 2. PrintList (проверяем со числами и строками)
+            Console.WriteLine("2. PrintList:");
+            PrintList(numbers);
+            PrintList(words);
+            Console.WriteLine("-------------");
+            
+            // 3. GetFirst
+            Console.WriteLine("3. GetFirst:");
+            Console.WriteLine($"Первое число: {GetFirst(numbers)}");
+            Console.WriteLine($"Первое слово: {GetFirst(words)}\n");
 
             Console.ReadKey();
         }
