@@ -265,8 +265,8 @@ namespace TaskSolution
             
             // 3. GetFirst
             Console.WriteLine("3. GetFirst:");
-            Console.WriteLine($"Цена первого товара: {GetLast(cart).Price}");
-            Console.WriteLine($"Наименование первого товара: {GetLast(cart).Name}");
+            Console.WriteLine($"Цена первого товара: {GetFirst(cart).Price}");
+            Console.WriteLine($"Наименование первого товара: {GetFirst(cart).Name}");
             Console.WriteLine("-------------");
 
             // 4. GetLast
