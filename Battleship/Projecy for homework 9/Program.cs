@@ -163,6 +163,14 @@ namespace TaskSolution
             return result;
         }
         
+        // Переворот списка static List<T> Reverse<T>(List<T> items)
+        static List<T> Reverse<T>(List<T> items)
+        {
+            List<T> result = new List<T>(items);
+            result.Reverse(); // Переворачивает копию
+            return result;
+        }
+        
         // Main метьд
         static void Main(string[] args)
         {
