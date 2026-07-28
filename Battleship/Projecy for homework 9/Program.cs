@@ -120,7 +120,7 @@ namespace TaskSolution
             Console.WriteLine(); //отступ в консоли
         }
         
-        // Последний элемент списка
+        // Получение последнего элемента списка
         static T GetLast<T>(List<T> items)
         {
             if (items == null || items.Count == 0)
@@ -129,13 +129,24 @@ namespace TaskSolution
             return items[items.Count - 1]; // У последнего элемента индекс на 1 больше, чем счётчик
         }
         
-        // Элемент по индексу
+        // Получение элемента по индексу
         static T GetByIndex<T>(List<T> items, int index)
         {
             if (index < 0 || index >= items.Count)
                 throw new ArgumentOutOfRangeException(nameof(index), "Индекс находится вне границ списка.");
 
             return items[index];
+        }
+        
+         // Вывод списка повторяющихся элементов
+        static List<T> Repeat<T>(T value, int count)
+        {
+            List<T> result = new List<T>();
+            for (int i = 0; i < count; i++)
+            {
+                result.Add(value);
+            }
+            return result;
         }
         
         // Main метьд
