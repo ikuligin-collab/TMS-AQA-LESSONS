@@ -75,15 +75,16 @@ namespace TaskSolution
     // 2. ГЛАВНЫЙ КЛАСС ПРОГРАММЫ
     internal class Program
     {
-       
+
         //Вывод списка всех товаров
-        public static void PrintAllProducts(List<Product> products)
+        public static void PrintAllProducts (List<Product> products)
         {
             Console.WriteLine("--- Список всех товаров ---");
             foreach (var product in products)
             {
                 product.DisplayInfo();
             }
+
             Console.WriteLine();
         }
 
@@ -95,6 +96,7 @@ namespace TaskSolution
             {
                 item.ApplyDiscount(discountPercent);
             }
+
             Console.WriteLine("Скидка успешно применена!\n");
         }
 
@@ -106,9 +108,10 @@ namespace TaskSolution
             {
                 total += product.Price;
             }
+
             return total;
         }
-        
+
         //Вывод одного значения
         static void PrintValue<T>(T value)
         {
@@ -123,8 +126,10 @@ namespace TaskSolution
             {
                 Console.WriteLine(item);
             }
+
             Console.WriteLine(); //отступ в консоли
         }
+
         //Получение первого элемента
         static T GetFirst<T>(List<T> items)
         {
@@ -133,7 +138,7 @@ namespace TaskSolution
 
             return items[0];
         }
-        
+
         // Получение последнего элемента списка
         static T GetLast<T>(List<T> items)
         {
@@ -142,7 +147,7 @@ namespace TaskSolution
 
             return items[items.Count - 1]; // У последнего элемента индекс на 1 больше, чем счётчик
         }
-        
+
         // Получение элемента по индексу
         static T GetByIndex<T>(List<T> items, int index)
         {
@@ -151,8 +156,8 @@ namespace TaskSolution
 
             return items[index];
         }
-        
-         // Вывод списка повторяющихся элементов
+
+        // Вывод списка повторяющихся элементов
         static List<T> Repeat<T>(T value, int count)
         {
             List<T> result = new List<T>();
@@ -160,15 +165,16 @@ namespace TaskSolution
             {
                 result.Add(value);
             }
+
             return result;
         }
-        
+
         // Копирование списка
         static List<T> Copy<T>(List<T> items)
         {
             return new List<T>(items);
         }
-        
+
         //Объеденение 2х списков 
         static List<T> Merge<T>(List<T> first, List<T> second)
         {
@@ -176,7 +182,7 @@ namespace TaskSolution
             result.AddRange(second);
             return result;
         }
-        
+
         // Переворот списка static List<T> Reverse<T>(List<T> items)
         static List<T> Reverse<T>(List<T> items)
         {
@@ -184,7 +190,7 @@ namespace TaskSolution
             result.Reverse(); // Переворачивает копию
             return result;
         }
-        
+
         // Вывод прервых элементов
         static List<T> Take<T>(List<T> items, int count)
         {
@@ -194,10 +200,46 @@ namespace TaskSolution
             {
                 result.Add(items[i]);
             }
+
             return result;
         }
+
+        // Поиск самого дорогого товара
+        static T GetMostExpensive<T>(List<T> items) where T : Product
+        {
+            if (items == null || items.Count == 0)
+                throw new InvalidOperationException("Список пуст");
+            T mostExpensive = items[0];
+            foreach (var item in items)
+            {
+                if (item.Price > mostExpensive.Price)
+                {
+                    mostExpensive = item;
+                }
+            }
+
+            return mostExpensive;
+        }
         
-        // Main метьд
+        //Товары дешевле указанной суммы
+        static List<T> GetProductCheaperThan<T>(List<T> products, decimal maximumPrice) where T : Product
+        {
+            if (products == null )
+                throw new InvalidOperationException("Список пуст");
+            List<T> result = new List<T>();
+            foreach (var rpoduct in products)
+            {
+                if (rpoduct.Price <= maximumPrice)
+                {
+                    result.Add(rpoduct);
+                }
+                
+            }
+            return result;
+        }
+
+
+    // Main метьд
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -315,7 +357,12 @@ namespace TaskSolution
             List<Product> takenProducts = Take(cart, 2); // Берем первые 2 товара из корзины
             PrintList(takenProducts);
             Console.WriteLine("-------------");
-                
+            
+            //Поиск самого дорогого товара
+            Console.WriteLine("MostExpensive:");
+            Product mostExpensive = GetMostExpensive(cart);
+            Console.WriteLine($"Самый дорогой товар {mostExpensive.Name}");
+            Console.WriteLine("-------------");  
             Console.ReadKey();
         }
     }
